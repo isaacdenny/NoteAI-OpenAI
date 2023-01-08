@@ -1,23 +1,20 @@
 import React from "react";
 import { Heading, Flex, Divider } from "@chakra-ui/react";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <>
       <Flex
         as="nav"
         align="center"
         justify="center"
-        wrap="wrap"
+        width="full"
         paddingTop="0.5rem"
         paddingBottom="0.5rem"
-        paddingLeft="10rem"
-        paddingRight="10rem"
-        height="4rem"
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="sm">
-            Message The AI
+            {props.text}
           </Heading>
         </Flex>
       </Flex>

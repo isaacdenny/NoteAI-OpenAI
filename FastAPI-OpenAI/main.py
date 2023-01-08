@@ -11,8 +11,8 @@ openai.api_key = os.getenv('OPEN_AI_KEY')
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
-    "localhost:3000"
+    os.getenv("CLIENT_SERVER"),
+    os.getenv("CLIENT_SERVER_NOHTTPS")
 ]
 
 app.add_middleware(

@@ -9,20 +9,21 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
+import { Header } from "../../components";
 
 const Form = () => {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
 
   const postPrompt = async () => {
-    setChatLog(...chatLog + message);
+    setChatLog(...(chatLog + message));
     const response = await fetch(`http://localhost:8000/promptai/${message}`, {
       method: "POST",
       mode: "cors",
       // body: JSON.stringify(message), // body data type must match "Content-Type" header
     });
     const aiResponse = await response.json();
-    setChatLog(...chatLog + aiResponse);
+    setChatLog(...(chatLog + aiResponse));
     console.log(aiResponse);
     alert(aiResponse.message);
   };
@@ -33,24 +34,30 @@ const Form = () => {
   };
 
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={2}>
-        <Box my={4} textAlign="left">
-          <form onSubmit={handleSubmit}>
-            <FormControl isRequired>
-              <FormLabel>Message</FormLabel>
-              <Input
-                placeholder="Is this 1984?"
-                onChange={(event) => setMessage(event.currentTarget.value)}
-              />
-            </FormControl>
-            <Button width="full" mt={4} type="submit">
-              Sign In
-            </Button>
-          </form>
-        </Box>
+    <Box
+      width="full"
+      height="full"
+      p={5}
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+    >
+      <Header text="Message The AI"/>
+      <Box my={4} textAlign="left">
+        <form onSubmit={handleSubmit}>
+          <FormControl isRequired>
+            <FormLabel>Message</FormLabel>
+            <Input
+              placeholder="What is 1984?"
+              onChange={(event) => setMessage(event.currentTarget.value)}
+            />
+          </FormControl>
+          <Button width="full" mt={4} type="submit">
+            Send Message
+          </Button>
+        </form>
       </Box>
-    </Flex>
+    </Box>
   );
 };
 
