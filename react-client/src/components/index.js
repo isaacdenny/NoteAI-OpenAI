@@ -1,5 +1,6 @@
 import Header from "./Header/Header";
-import Form from "./Form/Form";
+import ChatArea from "./ChatArea/ChatArea";
 import ChatHierarchy from "./ChatHierarchy/ChatHierarchy";
+import Chat from "./Chat/Chat";
 
-export { Header, Form, ChatHierarchy }
+export { Header, ChatArea, ChatHierarchy, Chat };

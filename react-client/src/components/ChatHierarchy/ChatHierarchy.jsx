@@ -3,10 +3,6 @@ import { useState, useEffect } from "react";
 import {
   Flex,
   Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
 } from "@chakra-ui/react";
 import { Header } from "../../components";

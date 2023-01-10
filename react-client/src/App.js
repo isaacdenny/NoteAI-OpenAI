@@ -1,5 +1,5 @@
 import { ChakraProvider, Box, Flex } from "@chakra-ui/react";
-import {Form, ChatHierarchy} from "./components";
+import { ChatArea, ChatHierarchy, Header } from "./components";
 
 function App() {
   return (
@@ -21,7 +21,8 @@ function App() {
           alignItems="center"
           flexDirection="column"
         >
-          <Form />
+          <Header text="Message The AI" />
+          <ChatArea />
         </Flex>
       </Flex>
     </ChakraProvider>
