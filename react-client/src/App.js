@@ -4,7 +4,13 @@ import { ChatArea, ChatHierarchy, Header } from "./components";
 function App() {
   return (
     <ChakraProvider>
-      <Flex width="full" height="100vh" flexDirection="row">
+      <Flex
+        width="full"
+        height="100vh"
+        flexDirection="row"
+        paddingLeft={150}
+        paddingRight={150}
+      >
         <Flex
           width={250}
           height="full"
@@ -21,7 +27,6 @@ function App() {
           alignItems="center"
           flexDirection="column"
         >
-          <Header text="Message The AI" />
           <ChatArea />
         </Flex>
       </Flex>

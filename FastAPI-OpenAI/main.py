@@ -28,9 +28,11 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.post("/promptai/{language}/{message}", status_code=201)
-async def prompt_ai(language: str, message: str):
-    if language == "Hello" and message == "World!":
+@app.post("/promptai/{mode}/{message}", status_code=201)
+async def prompt_ai(mode: str, message: str):
+    print(mode)
+    print(message)
+    if mode == "Hello" and message == "World!":
         response = openai.Completion.create(
         model="text-davinci-003", 
         prompt=f'Hi there, are you ready to code?', 
@@ -38,13 +40,11 @@ async def prompt_ai(language: str, message: str):
         max_tokens=10
         )
         return {"message": response.choices[0].text.lstrip(" about\n\n")}
-    print(language)
-    print(message)
     response = openai.Completion.create(
         model="text-davinci-003", 
-        prompt=f'Give me the {language} documentation on {message}', 
+        prompt=f'Please give me outlined notes for this {mode}: {message}', 
         temperature=0, 
-        max_tokens=10
+        max_tokens=200
         )
     print(response.choices[0].text)
-    return {"message": response.choices[0].text.lstrip(" about\n\n") + "..."}
+    return {"message": response.choices[0].text + "..."}

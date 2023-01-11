@@ -12,32 +12,36 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Textarea,
 } from "@chakra-ui/react";
 
 const ChatArea = () => {
   const [message, setMessage] = useState("");
-  const [answered, setAnswered] = useState(true)
-  const [language, setLanguage] = useState("Python");
+  const [answered, setAnswered] = useState(true);
+  const [mode, setMode] = useState("text");
   const [chatLog, setChatLog] = useState([
-    // {
-    //   language: "Hello",
-    //   message: "World!",
-    // },
+    {
+      user: "user",
+      mode: "Hello",
+      message: "World!",
+    },
   ]);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    setChatLog([...chatLog, { language: language, message: message }]);
-    setAnswered(false)
+    if (message) {
+      event.preventDefault();
+      setChatLog([...chatLog, { user: "user", mode: mode, message: message }]);
+      setAnswered(false);
+    }
   };
 
   useEffect(() => {
     if (answered) return;
     async function postPrompt() {
-      const lang = chatLog[chatLog.length - 1].language;
+      const md = chatLog[chatLog.length - 1].mode;
       const mes = chatLog[chatLog.length - 1].message;
       const response = await fetch(
-        `http://localhost:8000/promptai/${lang}/${mes}`,
+        `http://localhost:8000/promptai/${md}/${mes}`,
         {
           method: "POST",
           mode: "cors",
@@ -47,9 +51,9 @@ const ChatArea = () => {
       if (aiResponse) {
         setChatLog([
           ...chatLog,
-          { language: language, message: aiResponse.message },
+          { user: "gpt", mode: mode, message: aiResponse.message },
         ]);
-        setAnswered(true)
+        setAnswered(true);
       }
     }
     postPrompt();
@@ -73,11 +77,21 @@ const ChatArea = () => {
         borderRadius="lg"
         overflowY="scroll"
       >
-        <Header text="Chat Log" />
+        <Header text="Notes" />
         {[
-          ...chatLog?.map((logEntry, index) => (
-            <Chat key={index.toString()}>{logEntry.message.toString()}</Chat>
-          )),
+          ...chatLog.map((logEntry, index) => {
+            return (
+              <div key={index.toString()}>
+                {logEntry.user === "gpt" ? (
+                  <Chat key={index.toString()}>
+                    {logEntry.message.toString()}
+                  </Chat>
+                ) : (
+                  <div key={index.toString()} />
+                )}
+              </div>
+            );
+          }),
         ]}
         {/* add chatlog component */}
       </Box>
@@ -85,21 +99,25 @@ const ChatArea = () => {
         <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel>Doc Query</FormLabel>
-            <Input
-              placeholder="What is a module?"
+            <Textarea
+              minHeight={150}
+              maxHeight="fit-content"
+              overflowY="scroll"
+              placeholder={"Put your notes here!"}
               onChange={(event) => {
-                setMessage(event.currentTarget.value)
+                setMessage(event.currentTarget.value);
               }}
             />
           </FormControl>
           <Button width="full" mt={4} type="submit">
-            Send Message
+            Get Notes!
           </Button>
-          <RadioGroup onChange={setLanguage} value={language}>
+          <RadioGroup onChange={setMode} value={mode}>
             <Stack direction="row">
-              <Radio value="Python">Python</Radio>
-              <Radio value="JavaScript">JavaScript</Radio>
-              <Radio value="C Sharp">C#</Radio>
+              <Radio value="text">Text</Radio>
+              <Radio value="book">Book</Radio>
+              <Radio value="chapter">Chapter</Radio>
+              <Radio value="article">Article</Radio>
             </Stack>
           </RadioGroup>
         </form>

@@ -10,6 +10,7 @@ const Chat = (props) => {
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
+      bg={'darkgray'}
     >
       {props.children}
     </Box>
