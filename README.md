@@ -8,6 +8,7 @@ This project is an extension of OpenAI's capabilities, providing users with the 
 - MongoDB - DataBase
 - Mongoose - OMD
 - Express - Routing
+- Redux / Redux-Toolkit - State Management
 - Node.js - Runtime Environment
 - React - Front-end UI Framework
 - Linode (possibly GCP) - Hosting
