@@ -5,10 +5,10 @@ NoteAI is a web app for the everyday media consumer who needs to speed up their 
 This project is an extension of OpenAI's capabilities, providing users with the ability to easily condense their media into more consumable modes through a GUI. 
 
 # Technologies
-- PostgreSQL - DataBase
-- SQLAlchemy - DB Connection
-- Alembic - DB tables
-- FastAPI - Runtime Environment
+- MongoDB - DataBase
+- Mongoose - OMD
+- Express - Routing
+- Node.js - Runtime Environment
 - React - Front-end UI Framework
 - Linode (possibly GCP) - Hosting
 - Docker - Containerization, Deployment
@@ -34,30 +34,38 @@ This project is an extension of OpenAI's capabilities, providing users with the 
 - difficulty: Enum
 
 # Design API
-// TODO: authentication, authorization, 
+// TODO: authorization
 
-#### users/
-- GET: list users
-- POST: create a new session
-- DELETE: a student session
+#### auth/login
+- POST - login function query db
 
-#### users/:id/
-- GET 
+#### auth/register
+- POST - new user post to db
+
+#### account/:id/
+- GET - account info
 - PATCH - edit account? add achievement to user?
 - DELETE
 
+#### account/:id/achievements
+- GET - account-owned achievements
+- DELETE
 
-#### users/:id/achievements
-- GET
+#### account/:id/tests
+- GET - account-owned achievements
+- DELETE
+
+#### account/:id/tests/:id
+- GET - test information
 - DELETE
 
 #### achievements/:id/
-- GET
+- GET achievement information (requirements)
 - PATCH
 - DELETE
 
 #### achievements/
-- GET list of achievements
+- GET list of achievements available
 - POST
 
 # Planning TODOs
