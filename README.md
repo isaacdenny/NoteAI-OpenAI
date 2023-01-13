@@ -5,10 +5,11 @@ NoteAI is a web app for the everyday media consumer who needs to speed up their 
 This project is an extension of OpenAI's capabilities, providing users with the ability to easily condense their media into more consumable modes through a GUI. 
 
 # Technologies
-- MongoDB - DataBase
-- Express - RESTful API Routing
+- PostgreSQL - DataBase
+- SQLAlchemy - DB Connection
+- Alembic - DB tables
+- FastAPI - Runtime Environment
 - React - Front-end UI Framework
-- Node.js - Runtime Environment
 - Linode (possibly GCP) - Hosting
 - Docker - Containerization, Deployment
 
