@@ -1,19 +1,20 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 const Chat = (props) => {
   return (
-    <Box
+    <Flex
       width="full"
       p={3}
       my={2}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      bg={'darkgray'}
+      bg={'lightgray'}
+      whiteSpace="pre"
     >
       {props.children}
-    </Box>
+    </Flex>
   );
 }
 

@@ -37,26 +37,28 @@ const ChatArea = () => {
 
   useEffect(() => {
     if (answered) return;
-    async function postPrompt() {
-      const md = chatLog[chatLog.length - 1].mode;
-      const mes = chatLog[chatLog.length - 1].message;
-      const response = await fetch(
-        `http://localhost:8000/promptai/${md}/${mes}`,
-        {
-          method: "POST",
-          mode: "cors",
-        }
-      );
-      const aiResponse = await response.json();
-      if (aiResponse) {
+    const requestBody = {
+      user: chatLog[chatLog.length - 1].user,
+      mode: chatLog[chatLog.length - 1].mode,
+      message: chatLog[chatLog.length - 1].message,
+    };
+    fetch(`http://localhost:8000/promptai/`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         setChatLog([
           ...chatLog,
-          { user: "gpt", mode: mode, message: aiResponse.message },
+          { user: data.user, mode: data.mode, message: data.message },
         ]);
         setAnswered(true);
-      }
-    }
-    postPrompt();
+      })
+      .catch((error) => console.error(error));
   }, [answered]);
 
   return (
@@ -80,16 +82,12 @@ const ChatArea = () => {
         <Header text="Notes" />
         {[
           ...chatLog.map((logEntry, index) => {
-            return (
-              <div key={index.toString()}>
-                {logEntry.user === "gpt" ? (
-                  <Chat key={index.toString()}>
-                    {logEntry.message.toString()}
-                  </Chat>
-                ) : (
-                  <div key={index.toString()} />
-                )}
-              </div>
+            return logEntry.user === "gpt" ? (
+              <Chat key={index.toString()}>
+                {logEntry.message}
+              </Chat>
+            ) : (
+              <div key={index.toString()} />
             );
           }),
         ]}

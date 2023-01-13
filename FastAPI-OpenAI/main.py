@@ -1,6 +1,6 @@
 import os
 from dotenv import main
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 import openai
 from pydantic import BaseModel
@@ -16,8 +16,9 @@ origins = [
     os.getenv("CLIENT_SERVER_NOHTTPS")
 ]
 
-class Body(BaseModel):
-    language: str
+class MessageReq(BaseModel):
+    user: str
+    mode: str
     message: str
 
 app.add_middleware(
@@ -28,23 +29,14 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.post("/promptai/{mode}/{message}", status_code=201)
-async def prompt_ai(mode: str, message: str):
-    print(mode)
-    print(message)
-    if mode == "Hello" and message == "World!":
-        response = openai.Completion.create(
-        model="text-davinci-003", 
-        prompt=f'Hi there, are you ready to code?', 
-        temperature=0, 
-        max_tokens=10
-        )
-        return {"message": response.choices[0].text.lstrip(" about\n\n")}
+@app.post("/promptai/")
+async def prompt_ai(body: MessageReq = Body(...)):
+    print(body.user)
     response = openai.Completion.create(
         model="text-davinci-003", 
-        prompt=f'Please give me outlined notes for this {mode}: {message}', 
+        prompt=f'Please give me outlined notes for this {body.mode}: {body.message}.', 
         temperature=0, 
-        max_tokens=200
+        max_tokens=100
         )
     print(response.choices[0].text)
-    return {"message": response.choices[0].text + "..."}
+    return {"user": "gpt", "mode": body.mode, "message": response.choices[0].text.lstrip("\n\n")}
