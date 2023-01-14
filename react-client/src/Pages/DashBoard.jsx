@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Flex,
-} from "chakra-ui/react"
+} from "@chakra-ui/react"
 import { ChatHierarchy, ChatArea } from '../components';
 
 const DashBoard = () => {

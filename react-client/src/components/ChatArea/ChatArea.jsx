@@ -42,7 +42,7 @@ const ChatArea = () => {
       mode: chatLog[chatLog.length - 1].mode,
       message: chatLog[chatLog.length - 1].message,
     };
-    fetch(`http://localhost:8000/promptai/`, {
+    fetch(`http://localhost:8080/prompai/notes`, {
       method: "POST",
       mode: "cors",
       headers: {
