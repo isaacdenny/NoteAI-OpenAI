@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import authRoutes from "./routes/auth.js";
+import aiRoutes from "./routes/promptai.js";
 
 /* EXPRESS - APP CONFIGURATION */
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/auth", authRoutes)
 //app.use("/account", userRoutes) 
-// maybe some premium routes?
+app.use("/promptai", aiRoutes)
 
 /* MONGOOSE SETUP - Server connection */
 const PORT = process.env.PORT || 6001;

@@ -1,6 +1,6 @@
 import Header from "./Header/Header";
-import ChatArea from "./ChatArea/ChatArea";
-import ChatHierarchy from "./ChatHierarchy/ChatHierarchy";
+import WritingArea from "./WritingArea/WritingArea";
+import Hierarchy from "./Hierarchy/Hierarchy";
 import Chat from "./Chat/Chat";
 
-export { Header, ChatArea, ChatHierarchy, Chat };
+export { Header, WritingArea, Hierarchy, Chat };

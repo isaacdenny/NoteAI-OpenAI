@@ -15,7 +15,8 @@ function App() {
           <Route path={"/login"} element={<LoginPage />} />
           <Route
             path={"/dashboard/:id"}
-            element={isAuth ? <DashBoard /> : <Navigate to="/login" />}
+            //element={isAuth ? <DashBoard /> : <Navigate to="/login" />}
+            element={<DashBoard />}
           />
         </Routes>
       </ChakraProvider>
