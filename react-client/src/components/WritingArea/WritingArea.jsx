@@ -20,7 +20,7 @@ import {
 const WritingArea = () => {
   const [material, setMaterial] = useState("");
   const [maxContext, setMaxContext] = useState(50);
-  const [focus, setFocus] = useState("1");
+  const [focus, setFocus] = useState("Theme");
   const [title, setTitle] = useState("Untitled");
   const [placeholder, setPlaceholder] = useState("");
   const [prefix, setPrefix] = useState("text");
@@ -51,7 +51,7 @@ const WritingArea = () => {
   const onKeyDown = (e) => {
     if (e.key === "t" && material.endsWith("\\gp")) {
       autoFill(
-        `Please add to this text titled ${title} with a focus on ${focus} ` +
+        `Please add to this text titled '${title}' with a focus on ${focus}: ` +
           material.split("\\gp")[0].slice(-maxContext)
       );
     } else if (e.key === "/") {
@@ -115,9 +115,9 @@ const WritingArea = () => {
         </InputGroup>
         <RadioGroup onChange={setFocus} value={focus} width="fit-content" my={5}>
           <Stack>
-            <Radio value="1">Theme</Radio>
-            <Radio value="2">Diction</Radio>
-            <Radio value="3">Syntax</Radio>
+            <Radio value="Theme">Theme</Radio>
+            <Radio value="Diction">Diction</Radio>
+            <Radio value="Syntax">Syntax</Radio>
           </Stack>
         </RadioGroup>
       </Box>
